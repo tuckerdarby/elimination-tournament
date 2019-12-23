@@ -1,0 +1,28 @@
+{
+  "name": "wc3-app",
+  "version": "1.0.0",
+  "description": "A demo for TypeScript in WC3",
+  "directories": {
+    "lib": "app/src/lib"
+  },
+  "main": "app/src/main.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node build.js --build",
+    "run": "node build.js --run",
+    "start": "node build.js -jass --build --run"
+  },
+  "author": "Nikolaj \"William\" Mariager",
+  "license": "MIT",
+  "dependencies": {
+    "convertjasstots": "latest",
+    "fs-extra": "latest",
+    "lua-types": "latest",
+    "typescript": "3.5.3",
+    "typescript-to-lua": "0.27.0"
+  },
+  "devDependencies": {
+    "tslint": "^5.18.0",
+    "tslint-config-airbnb": "^5.11.1"
+  }
+}

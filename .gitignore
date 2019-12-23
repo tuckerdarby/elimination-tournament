@@ -1,0 +1,8 @@
+.DS_Store
+.idea
+config/warcraft.json
+src/
+target/
+node_modules/
+package-lock.json
+*.lua
