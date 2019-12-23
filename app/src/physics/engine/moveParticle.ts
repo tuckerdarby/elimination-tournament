@@ -12,7 +12,7 @@ export const moveParticle = (
   SetUnitPosition(unit, nextPosition.x, nextPosition.y);
   SetUnitFlyHeight(unit, getUnitAbsoluteFlyHeight(unit, nextPosition.z), 0);
   if (gravity) {
-    velocity.z -= gravitySpeed;
+    velocity.z += gravitySpeed;
   }
   particle.position = nextPosition;
 };

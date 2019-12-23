@@ -1,13 +1,11 @@
 import { IParticle } from './types';
 import { Trigger } from '../../jassOverrides/Trigger';
 import { moveParticle } from './moveParticle';
-import { Log } from '../../lib/Serilog/Serilog';
 
 class ParticleEngine {
   private particles: IParticle[] = [];
   private timedTrigger: Trigger | undefined;
-  private enabled: boolean = false;
-  private gravity: number = 2500;
+  private gravity: number = -0.5;
 
   private step() {
     this.particles.forEach(particle => {
