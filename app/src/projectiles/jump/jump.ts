@@ -25,11 +25,12 @@ export const jump = (): void => {
   const facingAngle = getFacingAngle(pathVector);
 
   const { x, y } = pathVector;
+  const { maxDistance, arcScalar } = jumpSettings.trajectory;
 
   // if (UnitHasBuffBJ(fireUnit, FourCC('B001')) === false && UnitHasBuffBJ(fireUnit, FourCC('B004'))) {}
   const gravity = Math.abs(particleEngine.getGravity());
-  const distance = RMinBJ(jumpSettings.maxDistance, Math.sqrt(x * x + y * y));
-  const arc = Math.sqrt(jumpSettings.arcScalar * gravity);
+  const distance = RMinBJ(maxDistance, Math.sqrt(x * x + y * y));
+  const arc = Math.sqrt(arcScalar * gravity);
   const jumpAngle = Asin((distance * gravity) / (arc * arc)) / 2; // (bj_PI/2)
 
   const vx = Cos(jumpAngle) * CosBJ(facingAngle) * arc;

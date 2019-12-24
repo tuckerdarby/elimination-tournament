@@ -5,7 +5,7 @@ import { subtractVectors } from '../../physics/vectors/subtractVectors';
 import { createProjectile } from '../createProjectile';
 import { createVector } from '../../physics/vectors/createVector';
 import { IParticle } from '../../physics/engine/types';
-import { ILinearTrajectorySetting } from '../projectileSettings';
+import { ILinearTrajectorySetting } from '../types';
 
 export const createLinearProjectile = (
   player: player,

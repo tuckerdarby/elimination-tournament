@@ -3,7 +3,7 @@ import { IParticle } from '../../physics/engine/types';
 import { subtractVectors } from '../../physics/vectors/subtractVectors';
 import { getFacingAngle } from '../utils/getFacingAngle';
 import { particleEngine } from '../../physics/engine/particleEngine';
-import { IArcTrajectorySetting } from '../projectileSettings';
+import { IArcTrajectorySetting } from '../types';
 import { createProjectile } from '../createProjectile';
 import { createVector } from '../../physics/vectors/createVector';
 
