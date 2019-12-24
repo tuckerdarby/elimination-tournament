@@ -3,22 +3,25 @@ import { createParticle } from '../physics/engine/createParticle';
 import { IVector } from '../physics/vectors/types';
 import { makeUnitFly } from './utils/makeUnitFly';
 import { offsetPosition } from './utils/offsetPosition';
+import { Projectiles } from './types';
+import { getTrajectoryVelocity } from './trajectories/getTrajectoryVelocity';
 
 export const createProjectile = (
   unit: unit,
   position: IVector,
-  velocity: IVector,
+  path: IVector,
   facingAngle: number,
-  groundEffect: GroundEffect,
-  gravity: boolean,
-  offset = 0,
-  terrainOffset = 0
+  projectile: Projectiles
 ): IParticle => {
+  const { gravity, groundEffect, spawnOffset, terrainOffset } = projectile;
+
+  const velocity = getTrajectoryVelocity(projectile, path, facingAngle);
+
   // Prepare unit
   const particlePosition = offsetPosition(
     position,
     facingAngle,
-    offset,
+    spawnOffset,
     terrainOffset
   );
   SetUnitFacingTimed(unit, facingAngle, 0);

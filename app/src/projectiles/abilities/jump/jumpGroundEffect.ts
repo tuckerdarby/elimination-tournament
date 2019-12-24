@@ -1,13 +1,13 @@
-import { IParticle } from '../../physics/engine/types';
-import { particleEngine } from '../../physics/engine/particleEngine';
-import { getTerrainNormal } from '../../physics/vectors/getTerrainNormal';
-import { projectVector } from '../../physics/vectors/projectVector';
-import { scaleVector } from '../../physics/vectors/scaleVector';
-import { subtractVectors } from '../../physics/vectors/subtractVectors';
-import { addVectors } from '../../physics/vectors/addVectors';
-import { getScalarProduct } from '../../physics/vectors/getScalarProduct';
-import { setVectorLength } from '../../physics/vectors/setVectorLength';
-import { Log } from '../../lib/Serilog/Serilog';
+import { IParticle } from '../../../physics/engine/types';
+import { particleEngine } from '../../../physics/engine/particleEngine';
+import { getTerrainNormal } from '../../../physics/vectors/getTerrainNormal';
+import { projectVector } from '../../../physics/vectors/projectVector';
+import { scaleVector } from '../../../physics/vectors/scaleVector';
+import { subtractVectors } from '../../../physics/vectors/subtractVectors';
+import { addVectors } from '../../../physics/vectors/addVectors';
+import { getScalarProduct } from '../../../physics/vectors/getScalarProduct';
+import { setVectorLength } from '../../../physics/vectors/setVectorLength';
+import { Log } from '../../../lib/Serilog/Serilog';
 
 export const jumpGroundEffect = (particle: IParticle): void => {
   const { position, unit, velocity } = particle;

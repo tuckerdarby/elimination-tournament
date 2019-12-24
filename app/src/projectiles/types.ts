@@ -2,31 +2,41 @@ import { IParticle, GroundEffect, HitEffect } from '../physics/engine/types';
 
 export enum ProjectileType {
   JUMP = 'JUMP',
-  SNIPER = 'SNIPER'
+  SNIPER = 'SNIPER',
+  LASER = 'LASER'
 }
 
-export type PreProjectileEffect = (unit: unit) => void;
-export type PostProjectileEffect = (particle: IParticle) => void;
+export type PreProjectileEffect = (sourceUnit: unit) => void;
+export type PostProjectileEffect = (
+  sourceUnit: unit,
+  particle: IParticle
+) => void;
 
-export interface IProjectileSetting {
+export interface IProjectile {
   sourceSound?: string;
   abilityCode: number;
   trajectoryType: TrajectoryType;
-  trajectory: TrajectorySettings;
   timedLife?: number;
   unitCode?: number; // No unit code uses the source/casting unit as the projectile!
   preEffect?: PreProjectileEffect;
   postEffect?: PostProjectileEffect;
+  initializeData?: () => void;
+  groundEffect: GroundEffect;
+  hitEffect?: HitEffect;
+  spawnOffset: number;
+  terrainOffset: number;
+  gravity: boolean;
 }
 
-export interface ILinearProjectileSetting extends IProjectileSetting {
+export interface ILinearProjectile extends IProjectile {
   trajectoryType: TrajectoryType.LINEAR;
-  trajectory: ILinearTrajectorySetting;
+  speed: number;
 }
 
-export interface IArcProjectileSetting extends IProjectileSetting {
+export interface IArcProjectile extends IProjectile {
   trajectoryType: TrajectoryType.ARC;
-  trajectory: IArcTrajectorySetting;
+  arcScalar: number;
+  maxDistance: number;
 }
 
 export enum TrajectoryType {
@@ -34,28 +44,4 @@ export enum TrajectoryType {
   ARC = 'ARC'
 }
 
-interface ITrajectorySetting {
-  groundEffect: GroundEffect;
-  hitEffect?: HitEffect;
-  trajectoryType: TrajectoryType;
-  spawnOffset: number;
-  terrainOffset: number;
-}
-
-export interface ILinearTrajectorySetting extends ITrajectorySetting {
-  speed: number;
-  gravity: boolean;
-}
-
-export interface IArcTrajectorySetting extends ITrajectorySetting {
-  arcScalar: number;
-  maxDistance: number;
-}
-
-export type ProjectileSettings =
-  | ILinearProjectileSetting
-  | IArcProjectileSetting;
-
-export type TrajectorySettings =
-  | ILinearTrajectorySetting
-  | IArcTrajectorySetting;
+export type Projectiles = ILinearProjectile | IArcProjectile;
