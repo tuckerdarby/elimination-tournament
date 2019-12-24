@@ -8,9 +8,10 @@ import { createProjectile } from '../createProjectile';
 import { createVector } from '../../physics/vectors/createVector';
 
 export const createArcProjectile = (
-  player: player,
+  unit: unit,
   origin: IVector,
-  target: IVector,
+  path: IVector,
+  facingAngle: number,
   trajectory: IArcTrajectorySetting
 ): IParticle => {
   const {
@@ -20,10 +21,8 @@ export const createArcProjectile = (
     spawnOffset,
     terrainOffset
   } = trajectory;
-  const pathVector = subtractVectors(target, origin);
-  const facingAngle = getFacingAngle(pathVector);
 
-  const { x, y } = pathVector;
+  const { x, y } = path;
 
   const gravity = Math.abs(particleEngine.getGravity());
   const distance = RMinBJ(maxDistance, Math.sqrt(x * x + y * y));
@@ -37,7 +36,7 @@ export const createArcProjectile = (
   const velocity = createVector(vx, vy, vz);
 
   const particle = createProjectile(
-    player,
+    unit,
     origin,
     velocity,
     facingAngle,

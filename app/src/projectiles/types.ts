@@ -5,14 +5,18 @@ export enum ProjectileType {
   SNIPER = 'SNIPER'
 }
 
+export type PreProjectileEffect = (unit: unit) => void;
+export type PostProjectileEffect = (particle: IParticle) => void;
+
 export interface IProjectileSetting {
   sourceSound?: string;
   abilityCode: number;
   trajectoryType: TrajectoryType;
   trajectory: TrajectorySettings;
   timedLife?: number;
-  preEvent?: () => void;
-  postEvent?: (particle: IParticle) => void;
+  unitCode?: number; // No unit code uses the source/casting unit as the projectile!
+  preEffect?: PreProjectileEffect;
+  postEffect?: PostProjectileEffect;
 }
 
 export interface ILinearProjectileSetting extends IProjectileSetting {

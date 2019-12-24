@@ -4,10 +4,8 @@ import { IVector } from '../physics/vectors/types';
 import { makeUnitFly } from './utils/makeUnitFly';
 import { offsetPosition } from './utils/offsetPosition';
 
-export const dummyUnitCode = FourCC('e001');
-
 export const createProjectile = (
-  player: player,
+  unit: unit,
   position: IVector,
   velocity: IVector,
   facingAngle: number,
@@ -23,20 +21,13 @@ export const createProjectile = (
     offset,
     terrainOffset
   );
-  const particleUnit = CreateUnit(
-    player,
-    dummyUnitCode,
-    particlePosition.x,
-    particlePosition.y,
-    facingAngle
-  );
-  SetUnitFacingTimed(particleUnit, facingAngle, 0);
-  makeUnitFly(particleUnit);
-  SetUnitFlyHeight(particleUnit, terrainOffset, 0);
+  SetUnitFacingTimed(unit, facingAngle, 0);
+  makeUnitFly(unit);
+  SetUnitFlyHeight(unit, terrainOffset, 0);
 
   // Particle
   const particle = createParticle(
-    particleUnit,
+    unit,
     particlePosition,
     velocity,
     gravity,

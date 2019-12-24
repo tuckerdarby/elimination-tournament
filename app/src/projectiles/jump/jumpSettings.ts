@@ -4,6 +4,7 @@ import {
   IArcProjectileSetting
 } from '../types';
 import { jumpGroundEffect } from './jumpGroundEffect';
+import { preJumpEffect, postJumpEffect } from './jumpEffects';
 
 export const jumpAbilityCode = FourCC('A00C');
 
@@ -20,5 +21,7 @@ export const jumpSettings: IArcProjectileSetting = {
   abilityCode: jumpAbilityCode,
   sourceSound: '',
   trajectoryType: TrajectoryType.ARC,
-  trajectory: jumpTrajectory
+  trajectory: jumpTrajectory,
+  preEffect: preJumpEffect,
+  postEffect: postJumpEffect
 };

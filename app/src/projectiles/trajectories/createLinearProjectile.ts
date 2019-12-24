@@ -8,9 +8,10 @@ import { IParticle } from '../../physics/engine/types';
 import { ILinearTrajectorySetting } from '../types';
 
 export const createLinearProjectile = (
-  player: player,
+  unit: unit,
   origin: IVector,
-  target: IVector,
+  path: IVector,
+  facingAngle: number,
   trajectory: ILinearTrajectorySetting
 ): IParticle => {
   const {
@@ -22,9 +23,7 @@ export const createLinearProjectile = (
   } = trajectory;
 
   // Path
-  const pathVector = subtractVectors(target, origin);
-  const facingAngle = getFacingAngle(pathVector);
-  const terrainAngle = getTerrainAngle(pathVector);
+  const terrainAngle = getTerrainAngle(path);
 
   // Velocity
   const vx = speed * CosBJ(facingAngle) * Cos(terrainAngle);
@@ -33,7 +32,7 @@ export const createLinearProjectile = (
   const velocity = createVector(vx, vy, vz);
 
   const projectile = createProjectile(
-    player,
+    unit,
     origin,
     velocity,
     facingAngle,
