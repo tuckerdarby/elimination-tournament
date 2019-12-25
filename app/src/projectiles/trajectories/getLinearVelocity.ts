@@ -1,10 +1,10 @@
-import { ILinearProjectile } from '../types';
+import { IGenericProjectileData, ILinearProjectile } from '../types';
 import { IVector } from '../../physics/vectors/types';
 import { getTerrainAngle } from '../utils/getTerrainAngle';
 import { createVector } from '../../physics/vectors/createVector';
 
-export const getLinearVelocity = (
-  projectile: ILinearProjectile,
+export const getLinearVelocity = <T extends IGenericProjectileData>(
+  projectile: ILinearProjectile<any>,
   path: IVector,
   facingAngle: number
 ): IVector => {

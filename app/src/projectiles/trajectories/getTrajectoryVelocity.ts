@@ -1,8 +1,9 @@
-import { Projectiles, TrajectoryType } from '../types';
+import { TrajectoryType } from '../types';
 import { IVector } from '../../physics/vectors/types';
 import { getLinearVelocity } from './getLinearVelocity';
 import { getArcVelocity } from './getArcVelocity';
 import { createVector } from '../../physics/vectors/createVector';
+import { Projectiles } from '../projectiles';
 
 export const getTrajectoryVelocity = (
   projectile: Projectiles,

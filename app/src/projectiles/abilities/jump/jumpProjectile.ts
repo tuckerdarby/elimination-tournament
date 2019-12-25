@@ -1,10 +1,10 @@
-import { TrajectoryType, IArcProjectile } from '../../types';
+import { TrajectoryType, IArcProjectile, IGenericProjectileData } from '../../types';
 import { jumpGroundEffect } from './jumpGroundEffect';
 import { preJumpEffect, postJumpEffect } from './jumpEffects';
 
 export const jumpAbilityCode = FourCC('A00C');
 
-export const jumpProjectile: IArcProjectile = {
+export const jumpProjectile: IArcProjectile<IGenericProjectileData> = {
   abilityCode: jumpAbilityCode,
   sourceSound: '',
   trajectoryType: TrajectoryType.ARC,

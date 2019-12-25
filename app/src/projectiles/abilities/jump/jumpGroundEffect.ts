@@ -7,9 +7,11 @@ import { subtractVectors } from '../../../physics/vectors/subtractVectors';
 import { addVectors } from '../../../physics/vectors/addVectors';
 import { getScalarProduct } from '../../../physics/vectors/getScalarProduct';
 import { setVectorLength } from '../../../physics/vectors/setVectorLength';
-import { Log } from '../../../lib/Serilog/Serilog';
+import { IGenericProjectileData } from '../../types';
 
-export const jumpGroundEffect = (particle: IParticle): void => {
+export const jumpGroundEffect = <T extends IGenericProjectileData>(
+  particle: IParticle<T>
+): void => {
   const { position, unit, velocity } = particle;
   const { x, y } = position;
   // IsTerrainPathable seems to be reversed for walkability?
@@ -21,7 +23,7 @@ export const jumpGroundEffect = (particle: IParticle): void => {
   }
   const c3 = 0.1;
   const c4 = 650 * 650;
-  const b10 = getTerrainNormal(x, y, 10); // was 25
+  const b10 = getTerrainNormal(x, y, 25); // was 25
   const b11 = projectVector(velocity, b10);
 
   const rest = scaleVector(velocity, 0.03);
@@ -39,10 +41,8 @@ export const jumpGroundEffect = (particle: IParticle): void => {
     particleEngine.removeParticle(particle);
     SetUnitPathing(unit, true);
     PauseUnit(unit, false);
-    Log.Debug('hit low');
   } else {
     particle.velocity = scaledBounceVelocity;
     particle.position = place;
-    Log.Debug('hit high');
   }
 };

@@ -1,11 +1,14 @@
-import { GroundEffect, IParticle } from '../../physics/engine/types';
-import { getTerrainNormal } from '../../physics/vectors/getTerrainNormal';
-import { projectVector } from '../../physics/vectors/projectVector';
-import { scaleVector } from '../../physics/vectors/scaleVector';
-import { subtractVectors } from '../../physics/vectors/subtractVectors';
-import { addVectors } from '../../physics/vectors/addVectors';
+import { IParticle } from '../../../physics/engine/types';
+import { IGenericProjectileData } from '../../types';
+import { getTerrainNormal } from '../../../physics/vectors/getTerrainNormal';
+import { projectVector } from '../../../physics/vectors/projectVector';
+import { subtractVectors } from '../../../physics/vectors/subtractVectors';
+import { scaleVector } from '../../../physics/vectors/scaleVector';
+import { addVectors } from '../../../physics/vectors/addVectors';
 
-export const bounceGroundEffect: GroundEffect = (particle: IParticle): void => {
+export const flatBounceGroundEffect = <T extends IGenericProjectileData>(
+  particle: IParticle<T>
+): void => {
   const { position, velocity } = particle;
   const terrainNormal = getTerrainNormal(position.x, position.y, 25);
   if (

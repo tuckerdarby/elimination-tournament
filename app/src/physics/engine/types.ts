@@ -1,6 +1,6 @@
 import { IVector } from '../vectors/types';
 
-export interface IParticle {
+export interface IParticle<T> {
   unit: unit;
   position: IVector;
   velocity: IVector;
@@ -8,10 +8,15 @@ export interface IParticle {
   radius: number;
   hittable: boolean;
   gravity: boolean;
-  groundEffect: GroundEffect;
-  hitEffect?: HitEffect;
+  data: T;
+  groundEffect: GroundEffect<T>;
+  hitEffect?: HitEffect<T>;
 }
 
-export type GroundEffect = (particle: IParticle) => void;
+export type GroundEffect<T> = (particle: IParticle<T>) => void;
 
-export type HitEffect = (particle: IParticle, hitParticle: IParticle) => void;
+export type HitEffect<T> = (
+  particle: IParticle<T>,
+  hitParticle: IParticle<T>,
+  data: T
+) => void;

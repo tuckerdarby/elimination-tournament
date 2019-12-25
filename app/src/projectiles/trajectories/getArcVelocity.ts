@@ -1,10 +1,10 @@
-import { IArcProjectile } from '../types';
+import { IArcProjectile, IGenericProjectileData } from '../types';
 import { IVector } from '../../physics/vectors/types';
 import { createVector } from '../../physics/vectors/createVector';
 import { particleEngine } from '../../physics/engine/particleEngine';
 
-export const getArcVelocity = (
-  projectile: IArcProjectile,
+export const getArcVelocity = <T extends IGenericProjectileData>(
+  projectile: IArcProjectile<T>,
   path: IVector,
   facingAngle: number
 ): IVector => {

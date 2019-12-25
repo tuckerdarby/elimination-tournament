@@ -1,4 +1,3 @@
-import { Projectiles } from './types';
 import { getUnitPosition } from './utils/getUnitPosition';
 import { getSpellTargetPosition } from './utils/getSpellTargetPosition';
 import { subtractVectors } from '../physics/vectors/subtractVectors';
@@ -8,6 +7,7 @@ import { applyTimedLife } from './utils/applyTimedLife';
 import { createUnitSoundEffect } from './utils/createUnitSoundEffect';
 import { particleEngine } from '../physics/engine/particleEngine';
 import { createProjectile } from './createProjectile';
+import { Projectiles } from './projectiles';
 
 export const handleProjectile = (projectile: Projectiles): void => {
   const sourceUnit = GetSpellAbilityUnit();

@@ -1,10 +1,9 @@
 import { IParticle } from './types';
 import { addVectors } from '../vectors/addVectors';
 import { getUnitAbsoluteFlyHeight } from '../../projectiles/utils/getAbsoluteHeight';
-import { Log } from '../../lib/Serilog/Serilog';
 
 export const moveParticle = (
-  particle: IParticle,
+  particle: IParticle<unknown>,
   gravitySpeed: number
 ): void => {
   const { gravity, position, unit, velocity } = particle;

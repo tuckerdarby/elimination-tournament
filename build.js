@@ -97,7 +97,7 @@ class Build {
             if (diag.code != 2306) {
                 console.error('FATAL ERROR IN TYPESCRIPT');
                 // console.error(diag);
-                console.error(`Error in file ${diag.fileName} of error: ${diag.messageText}`)
+                console.error(`Error in file ${diag.file.fileName} of error: ${diag.messageText}`)
                 throw diag;
 
             }

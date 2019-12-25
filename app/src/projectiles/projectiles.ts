@@ -1,7 +1,27 @@
 import { jumpProjectile } from './abilities/jump/jumpProjectile';
 import { sniperProjectile } from './abilities/sniper/sniperProjectile';
-import { Projectiles, ProjectileType } from './types';
-import { laserSettings } from './abilities/laser/laserSettings';
+import {
+  IArcProjectile,
+  IGenericProjectileData,
+  ILinearProjectile,
+  ProjectileType
+} from './types';
+import {
+  ILaserProjectile,
+  laserProjectile
+} from './abilities/laser/laserProjectile';
+
+export const initializeGenericProjectileData = (): IGenericProjectileData => {
+  return {
+    hits: [],
+    damage: 0
+  };
+};
+
+export type Projectiles =
+  | ILinearProjectile<IGenericProjectileData>
+  | IArcProjectile<IGenericProjectileData>
+  | ILaserProjectile;
 
 type ProjectileMap = {
   [index in ProjectileType]: Projectiles;
@@ -10,7 +30,7 @@ type ProjectileMap = {
 export const projectileMap: ProjectileMap = {
   [ProjectileType.JUMP]: jumpProjectile,
   [ProjectileType.SNIPER]: sniperProjectile,
-  [ProjectileType.LASER]: laserSettings
+  [ProjectileType.LASER]: laserProjectile
 };
 
 interface IAbilityProjectiles {
@@ -19,7 +39,7 @@ interface IAbilityProjectiles {
 
 const effectAbilityProjectiles: IAbilityProjectiles = {
   [sniperProjectile.abilityCode]: ProjectileType.SNIPER,
-  [laserSettings.abilityCode]: ProjectileType.LASER
+  [laserProjectile.abilityCode]: ProjectileType.LASER
 };
 
 const castAbilityProjectiles: IAbilityProjectiles = {

@@ -12,7 +12,7 @@ export const preJumpEffect: PreProjectileEffect = (
 
 export const postJumpEffect: PostProjectileEffect = (
   sourceUnit: unit,
-  particle: IParticle
+  particle: IParticle<unknown>
 ): void => {
   PauseUnit(sourceUnit, true);
   IssueImmediateOrder(sourceUnit, 'stop');
