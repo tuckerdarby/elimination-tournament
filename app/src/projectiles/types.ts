@@ -8,7 +8,8 @@ export interface IGenericProjectileData {
 export enum ProjectileType {
   JUMP = 'JUMP',
   SNIPER = 'SNIPER',
-  LASER = 'LASER'
+  LASER = 'LASER',
+  SHRAPNEL = 'SHRAPNEL'
 }
 
 export type PreProjectileEffect = (sourceUnit: unit) => void;
@@ -44,7 +45,21 @@ export interface IArcProjectile<T> extends IProjectile<T> {
   maxDistance: number;
 }
 
+export interface ILoftedProjectile<T> extends IProjectile<T> {
+  trajectoryType: TrajectoryType.LOFTED;
+  maxDistance: number;
+  minDistance: number;
+  speed: number;
+}
+
+export interface ICustomProjectile<T> extends IProjectile<T> {
+  trajectoryType: TrajectoryType.OTHER;
+  unitCode: number;
+}
+
 export enum TrajectoryType {
   LINEAR = 'LINEAR',
-  ARC = 'ARC'
+  ARC = 'ARC',
+  LOFTED = 'LOFTED',
+  OTHER = 'OTHER'
 }

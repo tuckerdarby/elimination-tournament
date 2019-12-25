@@ -8,6 +8,7 @@ import { createUnitSoundEffect } from './utils/createUnitSoundEffect';
 import { particleEngine } from '../physics/engine/particleEngine';
 import { createProjectile } from './createProjectile';
 import { Projectiles } from './projectiles';
+import { getTrajectoryVelocity } from './trajectories/getTrajectoryVelocity';
 
 export const handleProjectile = (projectile: Projectiles): void => {
   const sourceUnit = GetSpellAbilityUnit();
@@ -20,6 +21,7 @@ export const handleProjectile = (projectile: Projectiles): void => {
 
   const path = subtractVectors(targetPosition, sourcePosition);
   const facingAngle = getFacingAngle(path);
+  const velocity = getTrajectoryVelocity(projectile, path, facingAngle);
 
   const particleUnit = unitCode
     ? CreateUnit(
@@ -34,22 +36,20 @@ export const handleProjectile = (projectile: Projectiles): void => {
   const particle = createProjectile(
     particleUnit,
     sourcePosition,
-    path,
+    velocity,
     facingAngle,
     projectile
   );
 
-  if (particle) {
-    addModel(particle.unit, projectile.abilityCode);
-    if (projectile.timedLife) {
-      applyTimedLife(particle.unit, projectile.timedLife);
-    }
-    if (projectile.sourceSound) {
-      createUnitSoundEffect(sourceUnit, projectile.sourceSound, 127);
-    }
-    if (postEffect) {
-      postEffect(sourceUnit, particle);
-    }
-    particleEngine.addParticle(particle);
+  addModel(particle.unit, projectile.abilityCode);
+  if (projectile.timedLife) {
+    applyTimedLife(particle.unit, projectile.timedLife);
   }
+  if (projectile.sourceSound) {
+    createUnitSoundEffect(sourceUnit, projectile.sourceSound, 127);
+  }
+  if (postEffect) {
+    postEffect(sourceUnit, particle);
+  }
+  particleEngine.addParticle(particle);
 };

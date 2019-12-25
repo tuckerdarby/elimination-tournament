@@ -5,3 +5,7 @@ export const addModel = (unit: unit, abilityCode: number): void => {
     'origin'
   );
 };
+
+export const addModelFromFile = (unit: unit, file: string): void => {
+  AddSpecialEffectTarget(file, unit, 'origin');
+};

@@ -1,15 +1,17 @@
 import { jumpProjectile } from './abilities/jump/jumpProjectile';
 import { sniperProjectile } from './abilities/sniper/sniperProjectile';
 import {
-  IArcProjectile,
+  IArcProjectile, ICustomProjectile,
   IGenericProjectileData,
   ILinearProjectile,
+  ILoftedProjectile,
   ProjectileType
 } from './types';
 import {
   ILaserProjectile,
   laserProjectile
 } from './abilities/laser/laserProjectile';
+import { shrapnelProjectile } from './abilities/shrapnel/shrapnelProjectile';
 
 export const initializeGenericProjectileData = (): IGenericProjectileData => {
   return {
@@ -21,6 +23,8 @@ export const initializeGenericProjectileData = (): IGenericProjectileData => {
 export type Projectiles =
   | ILinearProjectile<IGenericProjectileData>
   | IArcProjectile<IGenericProjectileData>
+  | ILoftedProjectile<IGenericProjectileData>
+  | ICustomProjectile<IGenericProjectileData>
   | ILaserProjectile;
 
 type ProjectileMap = {
@@ -30,7 +34,8 @@ type ProjectileMap = {
 export const projectileMap: ProjectileMap = {
   [ProjectileType.JUMP]: jumpProjectile,
   [ProjectileType.SNIPER]: sniperProjectile,
-  [ProjectileType.LASER]: laserProjectile
+  [ProjectileType.LASER]: laserProjectile,
+  [ProjectileType.SHRAPNEL]: shrapnelProjectile
 };
 
 interface IAbilityProjectiles {
@@ -39,7 +44,8 @@ interface IAbilityProjectiles {
 
 const effectAbilityProjectiles: IAbilityProjectiles = {
   [sniperProjectile.abilityCode]: ProjectileType.SNIPER,
-  [laserProjectile.abilityCode]: ProjectileType.LASER
+  [laserProjectile.abilityCode]: ProjectileType.LASER,
+  [shrapnelProjectile.abilityCode]: ProjectileType.SHRAPNEL
 };
 
 const castAbilityProjectiles: IAbilityProjectiles = {

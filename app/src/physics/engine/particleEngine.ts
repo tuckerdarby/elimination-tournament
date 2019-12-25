@@ -1,6 +1,7 @@
 import { IParticle } from './types';
 import { Trigger } from '../../jassOverrides/Trigger';
 import { moveParticle } from './moveParticle';
+import { Log } from '../../lib/Serilog/Serilog';
 
 class ParticleEngine {
   private particles: IParticle<any>[] = [];
@@ -12,7 +13,14 @@ class ParticleEngine {
       if (UnitAlive(particle.unit)) {
         moveParticle(particle, this.gravity);
         if (particle.position.z <= GetLocationZ(GetUnitLoc(particle.unit))) {
-          particle.groundEffect(particle);
+          const ok = particle.groundEffect(particle);
+          Log.Debug(`hit: ${ok}`);
+          // @ts-ignore
+          if (ok && ok.length > 0) {
+            Log.Debug('wtf')
+            // @ts-ignore
+            ok.forEach(p => this.addParticle(p));
+          }
         }
       } else {
         particleEngine.removeParticle(particle);
