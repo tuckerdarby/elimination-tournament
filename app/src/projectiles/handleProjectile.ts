@@ -7,12 +7,11 @@ import { applyTimedLife } from './utils/applyTimedLife';
 import { createUnitSoundEffect } from './utils/createUnitSoundEffect';
 import { particleEngine } from '../physics/engine/particleEngine';
 import { createProjectile } from './createProjectile';
-import { Projectiles, abilityProjectiles, projectileMap } from './projectiles';
+import { Projectiles } from './projectiles';
 import { getTrajectoryVelocity } from './trajectories/getTrajectoryVelocity';
 
-export const handleProjectile = (spellAbilityId: number): void => {
-  const projectileType = abilityProjectiles[spellAbilityId];
-  const projectile = projectileMap[projectileType];
+export const handleProjectile = (projectile: Projectiles): void => {
+
   const sourceUnit = GetSpellAbilityUnit();
   const sourcePosition = getUnitPosition(sourceUnit);
   const targetPosition = getSpellTargetPosition();

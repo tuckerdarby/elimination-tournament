@@ -4,6 +4,7 @@ const typescriptToLua = require('typescript-to-lua');
 const ts = require("typescript");
 const { execSync } = require('child_process');
 const minimist = require('minimist');
+const os = require('os');
 let reportDiagnostic = typescriptToLua.createDiagnosticReporter(true);
 
 
@@ -96,8 +97,11 @@ class Build {
             console.log(diag.messageText);
             if (diag.code != 2306) {
                 console.error('FATAL ERROR IN TYPESCRIPT');
-                // console.error(diag);
-                console.error(`Error in file ${diag.file.fileName} of error: ${diag.messageText}`)
+                if (diag.file.fileName && diag.messageText) {
+                    console.error(`Error in file ${diag.file.fileName} of error: ${diag.messageText}`)
+                } else {
+                    console.error(diag);
+                }
                 throw diag;
 
             }
@@ -108,7 +112,8 @@ class Build {
         fs.copySync(`src/app/src/main.lua`, `src/main.lua`);
         fs.copySync(`src/app/src/lualib_bundle.lua`, `src/lualib_bundle.lua`);
 
-        sharedArgs = `build -- --map "map"`;
+        // sharedArgs = `build -- --map "map" --output "dir"`;
+        sharedArgs = 'build "map"'
         let ceres = '';
         switch (this.os) {
             case "win32":
@@ -133,12 +138,13 @@ class Build {
                 sed = "LC_ALL=C sed";
                 break;
         }
-        console.log(`${sed} -i "s/local function __module_/function __module_/g" "target/map/war3map.lua"`)
-        this.nativeExecute(`${sed} -i "s/local function __module_/function __module_/g" "target/map/war3map.lua"`);
+
+        const sedCommand = `${sed} -i "s/local function __module_/function __module_/g" "target/map/war3map.lua"`
+        console.log(`SED: ${sedCommand}`)
+        this.nativeExecute(sedCommand);
 
 
         sharedArgs = `add "target/map.w3x" "target/map/*" "/c" "/auto" "/r"`;
-        //
         this.nativeExecute(`${mpqEditor} ${sharedArgs}`);
     }
 
@@ -150,10 +156,15 @@ class Build {
         let currentDir = String(__dirname);
         switch (this.os) {
             case "linux":
-                suffix = "WINEDEBUG=-all wine64 ";
-                currentDir = String(currentDir).replace('/', '\\');
-                sharedArgs += '"Z:' + currentDir + '\\target\\map.w3x"';
-                break;
+                // suffix = "WINEDEBUG=-all wine64 ";
+                fs.copyFileSync('./target/map.w3x', `${os.homedir()}/Games/warcraft-iii-reign-of-chaos/drive_c/Program Files/Warcraft III/x86_64/map.w3x`);
+                suffix = 'lutris lutris:rungameid/2'
+                this.nativeExecute(`${suffix}`);
+                return;
+            // currentDir = String(currentDir).replace('/', '\\');
+            // sharedArgs += '"Z:' + currentDir + '\\target\\map.w3x"';
+            // break;
+            //old arguments: c:\\Program Files\\Warcraft III\\warcraft_iii.bat
             case "win32":
                 sharedArgs += currentDir + '\\target\\map.w3x"';
                 break;
