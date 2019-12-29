@@ -3,7 +3,9 @@
     "strict": true,
     "target": "esnext",
     "outDir": "src",
-    "lib": ["esnext"],
+    "lib": [
+      "esnext"
+    ],
     "types": [
       "lua-types/core/coroutine",
       "lua-types/core/global",
@@ -20,6 +22,6 @@
   },
   "tstl": {
     "luaTarget": "5.3",
-    "luaLibImport": "require"
+    "luaLibImport": "require",
   }
 }

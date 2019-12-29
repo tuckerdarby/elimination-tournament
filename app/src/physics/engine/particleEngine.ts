@@ -13,14 +13,7 @@ class ParticleEngine {
       if (UnitAlive(particle.unit)) {
         moveParticle(particle, this.gravity);
         if (particle.position.z <= GetLocationZ(GetUnitLoc(particle.unit))) {
-          const ok = particle.groundEffect(particle);
-          Log.Debug(`hit: ${ok}`);
-          // @ts-ignore
-          if (ok && ok.length > 0) {
-            Log.Debug('wtf')
-            // @ts-ignore
-            ok.forEach(p => this.addParticle(p));
-          }
+          particle.groundEffect(particle);
         }
       } else {
         particleEngine.removeParticle(particle);

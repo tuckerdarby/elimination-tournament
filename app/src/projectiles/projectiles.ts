@@ -13,13 +13,6 @@ import {
 } from './abilities/laser/laserProjectile';
 import { shrapnelProjectile } from './abilities/shrapnel/shrapnelProjectile';
 
-export const initializeGenericProjectileData = (): IGenericProjectileData => {
-  return {
-    hits: [],
-    damage: 0
-  };
-};
-
 export type Projectiles =
   | ILinearProjectile<IGenericProjectileData>
   | IArcProjectile<IGenericProjectileData>
@@ -51,6 +44,11 @@ const effectAbilityProjectiles: IAbilityProjectiles = {
 const castAbilityProjectiles: IAbilityProjectiles = {
   [jumpProjectile.abilityCode]: ProjectileType.JUMP
 };
+
+export const abilityProjectiles: IAbilityProjectiles = {
+  ...effectAbilityProjectiles,
+  ...castAbilityProjectiles
+}
 
 export enum PlayerUnitEventType {
   SPELL_CAST = 'EVENT_PLAYER_UNIT_SPELL_CAST',

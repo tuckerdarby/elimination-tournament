@@ -15,12 +15,8 @@ const createAbilityTrigger = (
     playerUnitEventTypes[playerUnitEventType]
   );
   abilityTrigger.AddAction(() => {
-    const abilities = projectileAbilities[playerUnitEventType];
     const spellAbilityId = GetSpellAbilityId();
-    const projectileSettingsType = abilities[spellAbilityId];
-    if (projectileSettingsType) {
-      handleProjectile(projectileMap[projectileSettingsType]);
-    }
+    handleProjectile(spellAbilityId);
   });
   return abilityTrigger;
 };

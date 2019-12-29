@@ -4,7 +4,8 @@ import { IVector } from '../physics/vectors/types';
 import { makeUnitFly } from './utils/makeUnitFly';
 import { offsetPosition } from './utils/offsetPosition';
 import { getTrajectoryVelocity } from './trajectories/getTrajectoryVelocity';
-import { initializeGenericProjectileData, Projectiles } from './projectiles';
+import { Projectiles } from './projectiles';
+import { initializeGenericProjectileData } from './initializeGenericProjectileData';
 
 export const createProjectile = (
   unit: unit,

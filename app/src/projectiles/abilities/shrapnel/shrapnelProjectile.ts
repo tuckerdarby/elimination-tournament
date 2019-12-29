@@ -21,4 +21,3 @@ export const shrapnelProjectile: ILoftedProjectile<IGenericProjectileData> = {
   minDistance: 128,
   speed: 14
 };
-

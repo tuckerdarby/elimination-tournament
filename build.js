@@ -2,7 +2,7 @@ const fs = require('fs-extra');
 const jassToTs = require('./node_modules/convertjasstots/dist/jassParser');
 const typescriptToLua = require('typescript-to-lua');
 const ts = require("typescript");
-const {execSync} = require('child_process');
+const { execSync } = require('child_process');
 const minimist = require('minimist');
 let reportDiagnostic = typescriptToLua.createDiagnosticReporter(true);
 
@@ -91,7 +91,7 @@ class Build {
         console.log(`${mpqEditor} ${sharedArgs}`)
         this.nativeExecute(`${mpqEditor} ${sharedArgs}`);
 
-        const {emitResult, diagnostics} = typescriptToLua.transpileProject('tsconfig.json');
+        const { emitResult, diagnostics } = typescriptToLua.transpileProject('tsconfig.json');
         for (let diag of diagnostics) {
             console.log(diag.messageText);
             if (diag.code != 2306) {
@@ -104,10 +104,11 @@ class Build {
 
         }
 
-        emitResult.forEach(({name, text}) => ts.sys.writeFile(name, text));
+        emitResult.forEach(({ name, text }) => { ts.sys.writeFile(name.replace('src/', 'src/app/src/'), text) });
         fs.copySync(`src/app/src/main.lua`, `src/main.lua`);
+        fs.copySync(`src/app/src/lualib_bundle.lua`, `src/lualib_bundle.lua`);
 
-        sharedArgs = `build "map"`;
+        sharedArgs = `build -- --map "map"`;
         let ceres = '';
         switch (this.os) {
             case "win32":
@@ -120,8 +121,7 @@ class Build {
                 ceres = "tools/ceres/ceres-linux";
                 break;
         }
-        //
-        console.log(`${ceres} ${sharedArgs}`);
+        console.log(`CERES: ${ceres} ${sharedArgs}`);
         this.nativeExecute(`${ceres} ${sharedArgs}`);
         let sed = '';
 
