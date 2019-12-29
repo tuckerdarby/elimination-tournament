@@ -1,7 +1,6 @@
 import { IParticle } from './types';
 import { Trigger } from '../../jassOverrides/Trigger';
 import { moveParticle } from './moveParticle';
-import { Log } from '../../lib/Serilog/Serilog';
 
 class ParticleEngine {
   private particles: IParticle<any>[] = [];

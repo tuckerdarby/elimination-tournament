@@ -47,7 +47,6 @@ export const shrapnelGroundEffect: GroundEffect<IGenericProjectileData> = (
     5
   );
 
-  const parts: IParticle<IGenericProjectileData>[] = []
   for (let i = 0; i < 4; i++) {
     const childFacingAngle = facingAngle + GetRandomReal(-20, 20);
     const childTerrainAngle = terrainAngle + GetRandomReal(-0.3, 0.3);
@@ -77,8 +76,8 @@ export const shrapnelGroundEffect: GroundEffect<IGenericProjectileData> = (
       particleUnit,
       'Abilities\\Weapons\\MakuraMissile\\MakuraMissile.mdl'
     );
-    // @ts-ignore
-    particleEngine.addParticle({});
+    Log.Debug(`CREATED SHRAP CHILD: ${vx}, ${vy}, ${vz}`);
+    particleEngine.addParticle(projectile);
   }
   const sound = `Abilities\\Weapons\\CannonTowerMissile\\CannonTowerMissile${I2S(
     GetRandomInt(1, 3)
@@ -86,5 +85,4 @@ export const shrapnelGroundEffect: GroundEffect<IGenericProjectileData> = (
   createUnitSoundEffect(unit, sound, 127);
   particleEngine.removeParticle(particle);
   RemoveUnit(unit);
-  Log.Debug(`pushed ${parts.length}`);
 };

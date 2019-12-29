@@ -3,7 +3,7 @@ import {
   projectileMap,
   PlayerUnitEventType,
   playerUnitEventTypes,
-  abilityProjectiles
+  projectileAbilities
 } from './projectiles';
 import { handleProjectile } from './handleProjectile';
 import { Log } from '../lib/Serilog/Serilog';
@@ -17,8 +17,8 @@ const createAbilityTrigger = (
   );
   abilityTrigger.AddAction(() => {
     const spellAbilityId = GetSpellAbilityId();
-    const projectileType = abilityProjectiles[spellAbilityId];
-    Log.Debug(`WHAT WHAT ${projectileType}`)
+    const abilityEventProjectiles = projectileAbilities[playerUnitEventType];
+    const projectileType = abilityEventProjectiles[spellAbilityId];
     if (projectileType) {
       const projectile = projectileMap[projectileType];
       handleProjectile(projectile);
