@@ -16,7 +16,6 @@ import { createExplosionEffect } from '../effects/createExplosionEffect';
 import { addModelFromFile } from '../../utils/addModel';
 import { makeUnitFly } from '../../utils/makeUnitFly';
 import { getUnitAbsoluteFlyHeight } from '../../utils/getAbsoluteHeight';
-import { Log } from '../../../lib/Serilog/Serilog';
 
 export const shrapnelGroundEffect: GroundEffect<IGenericProjectileData> = (
   particle: IParticle<IGenericProjectileData>
@@ -35,7 +34,7 @@ export const shrapnelGroundEffect: GroundEffect<IGenericProjectileData> = (
     0.65
   );
   const facingAngle = getFacingAngle(reversedVelocity);
-  const terrainAngle = getTerrainAngle(velocity);
+  const terrainAngle = getTerrainAngle(reversedVelocity);
   const explosionModel =
     'Abilities\\Weapons\\FlyingMachine\\FlyingMachineImpact.mdl';
   createExplosionEffect(
@@ -71,12 +70,17 @@ export const shrapnelGroundEffect: GroundEffect<IGenericProjectileData> = (
       getUnitAbsoluteFlyHeight(particleUnit, backtrackPosition.z),
       0
     );
-    const projectile = createProjectile(particleUnit, backtrackPosition, childVelocity, facingAngle, shrapnelChildProjectile);
+    const projectile = createProjectile(
+      particleUnit,
+      backtrackPosition,
+      childVelocity,
+      facingAngle,
+      shrapnelChildProjectile
+    );
     addModelFromFile(
       particleUnit,
       'Abilities\\Weapons\\MakuraMissile\\MakuraMissile.mdl'
     );
-    Log.Debug(`CREATED SHRAP CHILD: ${vx}, ${vy}, ${vz}`);
     particleEngine.addParticle(projectile);
   }
   const sound = `Abilities\\Weapons\\CannonTowerMissile\\CannonTowerMissile${I2S(

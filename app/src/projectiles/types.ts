@@ -9,7 +9,10 @@ export enum ProjectileType {
   JUMP = 'JUMP',
   SNIPER = 'SNIPER',
   LASER = 'LASER',
-  SHRAPNEL = 'SHRAPNEL'
+  SHRAPNEL = 'SHRAPNEL',
+  ACID = 'ACID',
+  MINIGUN = 'MINIGUN',
+  SMG = 'SMG'
 }
 
 export type PreProjectileEffect = (sourceUnit: unit) => void;
@@ -37,6 +40,8 @@ export interface IProjectile<T> {
 export interface ILinearProjectile<T> extends IProjectile<T> {
   trajectoryType: TrajectoryType.LINEAR;
   speed: number;
+  facingAccuracy?: number;
+  terrainAccuracy?: number;
 }
 
 export interface IArcProjectile<T> extends IProjectile<T> {

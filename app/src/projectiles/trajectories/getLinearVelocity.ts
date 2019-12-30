@@ -8,9 +8,12 @@ export const getLinearVelocity = <T extends IGenericProjectileData>(
   path: IVector,
   facingAngle: number
 ): IVector => {
-  const { speed } = projectile;
+  const { terrainAccuracy, speed } = projectile;
 
-  const terrainAngle = getTerrainAngle(path);
+  const terrainOffset = terrainAccuracy
+    ? GetRandomReal(-terrainAccuracy, terrainAccuracy)
+    : 0;
+  const terrainAngle = getTerrainAngle(path) + terrainOffset;
   const vx = speed * CosBJ(facingAngle) * Cos(terrainAngle);
   const vy = speed * SinBJ(facingAngle) * Cos(terrainAngle);
   const vz = speed * Sin(terrainAngle);

@@ -9,29 +9,38 @@ import { particleEngine } from '../physics/engine/particleEngine';
 import { createProjectile } from './createProjectile';
 import { Projectiles } from './projectiles';
 import { getTrajectoryVelocity } from './trajectories/getTrajectoryVelocity';
+import { projectVector } from '../physics/vectors/projectVector';
+import { IVector } from '../physics/vectors/types';
 
-export const handleProjectile = (projectile: Projectiles): void => {
-
-  const sourceUnit = GetSpellAbilityUnit();
+export const handleProjectile = (
+  projectile: Projectiles,
+  sourceUnit: unit,
+  targetPosition: IVector
+): void => {
   const sourcePosition = getUnitPosition(sourceUnit);
-  const targetPosition = getSpellTargetPosition();
   const { preEffect, postEffect, unitCode } = projectile;
   if (preEffect) {
     preEffect(sourceUnit);
   }
 
   const path = subtractVectors(targetPosition, sourcePosition);
-  const facingAngle = getFacingAngle(path);
+  let facingAngle = getFacingAngle(path);
+  if ('facingAccuracy' in projectile && projectile.facingAccuracy) {
+    facingAngle += GetRandomReal(
+      -projectile.facingAccuracy,
+      projectile.facingAccuracy
+    );
+  }
   const velocity = getTrajectoryVelocity(projectile, path, facingAngle);
 
   const particleUnit = unitCode
     ? CreateUnit(
-      GetOwningPlayer(sourceUnit),
-      unitCode,
-      sourcePosition.x,
-      sourcePosition.y,
-      facingAngle
-    )
+        GetOwningPlayer(sourceUnit),
+        unitCode,
+        sourcePosition.x,
+        sourcePosition.y,
+        facingAngle
+      )
     : sourceUnit;
 
   const particle = createProjectile(

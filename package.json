@@ -15,11 +15,9 @@
   "author": "Nikolaj \"William\" Mariager",
   "license": "MIT",
   "dependencies": {
-    "coffee-script": "^1.12.7",
     "convertjasstots": "latest",
     "fs-extra": "latest",
     "global": "^4.4.0",
-    "lua-distiller": "^0.2.3",
     "lua-types": "latest",
     "tstl": "latest",
     "typescript": "3.5.3",

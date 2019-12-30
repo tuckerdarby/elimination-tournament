@@ -14,7 +14,7 @@ export const getLoftedVelocity = <T extends IGenericProjectileData>(
 
   const distance = Math.max(
     minDistance,
-    RMinBJ(maxDistance, Math.sqrt(x * x + y * y) + 1) - spawnOffset
+    Math.min(maxDistance, Math.sqrt(x * x + y * y) + 1) - spawnOffset
   );
 
   const gravity = Math.abs(particleEngine.getGravity());
